@@ -10,7 +10,7 @@ GUI: “GUI.png”
 
 Experiment Description:
 
-The primary object of this experiment was to determine the stability and reproducibility of the instrument over a 25 day period of time.  This was quantified by measuring 4 different chemical mixtures which contained 36 chemicals of interest at 4 different concentration levels.  Each concentration level was measured ten times each day for a total of 40 measurements each day.  This was done across three different instruments.  For each chemical there were 9 metrics to assess the performance.  After each measurement the instrument would export a single tab delimited text file.  
+The primary object of this experiment was to determine the stability and reproducibility of the instrument over a 25 day period of time.  This was quantified by measuring 4 different chemical mixtures which contained 36 chemicals of interest at 4 different concentration levels.  Each concentration level was measured ten times each day for a total of 40 measurements each day.  This was done across three different instruments.  For each chemical there were 9 metrics to assess the performance.  After each measurement, the instrument would export a single tab delimited text file.  
 
 Data Accumulation:
 
@@ -22,9 +22,9 @@ Sample Raw Data:
 
 Sample Output:
 
-“SampleOutput_Area-Perfluoronaphthalene.png” Is an example of the integrated area for all four concentration levels of the chemical Perfluoronaphthalene after 10 days of the investigation.  A secondary y-axis is included overlaying the instrument detector voltage was set to for a particular measurement.
+“SampleOutput_Area-Perfluoronaphthalene.png” Is an example of the integrated area plotted for all four concentration levels of the chemical Perfluoronaphthalene after 10 days of the investigation.  A secondary y-axis is included overlaying the instrument detector voltage was set to for a particular measurement.
 
-“SampleOutput_Similarity-Bis(pentafluorophenyl)phenyl phosphine.png” Is an example of the spectral similarity to the main NIST library hit of Bis(pentafluorophenyl)phenyl phosphine after 10 days of the investigation.  Again, all 4 concentration levels are shown, and a secondary y-axis is used to overlay the instrument detector voltage.
+“SampleOutput_Similarity-Bis(pentafluorophenyl)phenyl phosphine.png” Is an example of the spectral similarity plotted for  Bis(pentafluorophenyl)phenyl phosphine after 10 days of the investigation.  Again, all 4 concentration levels are shown, and a secondary y-axis is used to overlay the instrument detector voltage.
 
 Application Description:
 
