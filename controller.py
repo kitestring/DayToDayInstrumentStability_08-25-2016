@@ -112,9 +112,6 @@ class D2D_Panel(wx.Panel):
 				#dump the tempfile contents into txt_file_contents
 				txt_file_contents = open(tempfile, 'r')
 				
-				#tempfile.close()
-				#os.remove(tempfile)
-				
 				#create new ChromatTOF object, set/reset metadatalst, valid file boolean, and headers found
 				ct = ChromatTOF()
 				metadatalst = []
@@ -127,8 +124,6 @@ class D2D_Panel(wx.Panel):
 					#parce the line of text into a list & remove the "\n" from the last list element
 					line_parced = line.split("\t")
 					line_parced[-1] = line_parced[-1].replace("\n","")
-				
-				
 				
 					if line_index == 0:
 						#reformat input datetime (mm/dd/yyyy hh:mm:ss 12 hour clock) into yyyy-mm-dd hh:mm:ss 24 hour clock
