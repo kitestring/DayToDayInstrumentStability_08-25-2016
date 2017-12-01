@@ -105,12 +105,11 @@ class D2D_Panel(wx.Panel):
 			#and mine analyte data
 			for txtfile_index, txt_file in enumerate(txt_fullpaths_lst):
 				
-				#open text file, find and replace specified analye names
-				#method returns tempfile which has replaced analyes names 
-				tempfile = self.FindReplaceAnalyeNames(txt_file)
+				#open text file, find and replace specified strings
+				#method returns tempfile which has replaced strings 
+				tempfile = self.FindReplaceStringInTextFile(txt_file, {'1st Dimension Time (s)': 'R.T. (s)'})
 				
 				#dump the tempfile contents into txt_file_contents
-				#then delete tempfile
 				txt_file_contents = open(tempfile, 'r')
 				
 				#tempfile.close()
@@ -461,8 +460,12 @@ class D2D_Panel(wx.Panel):
 		
 		self.EventLogger('Action Complete\n')
 	
-	def FindReplaceAnalyeNames(self, filename):
-		replacements = {"p,p'-DDT_TAF":'p,p-DDT_TAF', "p,p'-DDT":'p,p-DDT'}
+	def FindReplaceStringInTextFile(self, filename, replacements):
+		# Searches text file then finds and replaces give valeus 
+		# Requires dictionary where the key is the string to find &
+		# the value is the replacement string
+		
+		# replacements = {"p,p'-DDT_TAF":'p,p-DDT_TAF', "p,p'-DDT":'p,p-DDT'}
 		
 		tempfile = os.path.join(os.getcwd(), 'temp.txt')
 
