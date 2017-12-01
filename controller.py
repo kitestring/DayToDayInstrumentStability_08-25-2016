@@ -19,9 +19,12 @@ class D2D_Frame(wx.Frame):
 		self.Bind(wx.EVT_CLOSE, self.OnExit)
 		
 	def OnExit(self, event):
+		if os.path.exists(os.path.join(os.getcwd(), 'temp.txt')):
+			os.remove(os.path.join(os.getcwd(), 'temp.txt'))
 		panel.EventLogger('Saving & Disconnecting from databases.\n\t\tPlease Wait...')
 		panel.D2Ddb.conn.close()
 		self.Destroy()
+		
 		
 		
 class D2D_Panel(wx.Panel):
@@ -41,8 +44,7 @@ class D2D_Panel(wx.Panel):
 		
 		
 		#Connect to database
-		#fp = 'S:\\005_Saturn\\Analyses\\P01-T060_D2D Stability - II\\DFTPP_Automated_Processing\\D2D.db'
-		fp = 'C:\\D2D_Stability\\D2D.db'
+		fp = os.path.join(os.getcwd(), "D2D.db")
 		self.D2D_Table= 'Analyte_Data'
 		self.D2Ddb = Database(fp, self.D2D_Table)
 		self.D2Ddb_columns = self.D2Ddb.Get_Columns(self.D2D_Table)
@@ -103,8 +105,16 @@ class D2D_Panel(wx.Panel):
 			#and mine analyte data
 			for txtfile_index, txt_file in enumerate(txt_fullpaths_lst):
 				
-				#dump the file contents into txt_file_contents
-				txt_file_contents = open(txt_file, 'r')
+				#open text file, find and replace specified analye names
+				#method returns tempfile which has replaced analyes names 
+				tempfile = self.FindReplaceAnalyeNames(txt_file)
+				
+				#dump the tempfile contents into txt_file_contents
+				#then delete tempfile
+				txt_file_contents = open(tempfile, 'r')
+				
+				#tempfile.close()
+				#os.remove(tempfile)
 				
 				#create new ChromatTOF object, set/reset metadatalst, valid file boolean, and headers found
 				ct = ChromatTOF()
@@ -374,8 +384,6 @@ class D2D_Panel(wx.Panel):
 							field_column = field_start_column + index
 							field_index += 1
 							
-							'''jump'''
-							
 							#Create graphs
 							graph_title = self.ChartTitleGenerator(ct.AnalyteDict[analyte][0], field, analyte, concentration_label)
 							graph_row = self.graph_metadata[lvl]['row'] + self.start_row + (self.summarydata_field_row_spacer * index) - 1
@@ -441,9 +449,6 @@ class D2D_Panel(wx.Panel):
 							
 							row += 1
 							xlsx.add_list_of_lists(row, start_col, [stats_list], 'stats')
-							
-							
-							
 					
 					message = "%s Data - Complete" % analyte_display_name					
 					self.EventLogger(message)			
@@ -452,13 +457,22 @@ class D2D_Panel(wx.Panel):
 				self.EventLogger(message)
 				xlsx.disconnect()
 				xlsx = None			
-			
-			
-			
-			
 		
 		
 		self.EventLogger('Action Complete\n')
+	
+	def FindReplaceAnalyeNames(self, filename):
+		replacements = {"p,p'-DDT_TAF":'p,p-DDT_TAF', "p,p'-DDT":'p,p-DDT'}
+		
+		tempfile = os.path.join(os.getcwd(), 'temp.txt')
+
+		with open(filename) as infile, open(tempfile, 'w') as outfile:
+			for line in infile:
+				for OriginalAnalyteName, NewAnalyteName in replacements.iteritems():
+					line = line.replace(OriginalAnalyteName, NewAnalyteName)
+				outfile.write(line)
+
+		return tempfile
 	
 	def ChartTitleGenerator(self, DataProcessingType, Field, Analyte, Concentration):
 		
@@ -558,24 +572,21 @@ class ChromatTOF():
 		
 		self.Set_Data_Headers = ["Date Time", "Source File", "Det. Bias", "Area", "Similarity", "R.T. (s)", "Height", "FWHH (s)", "Tailing Factor", "Peak S/N", "Quant S/N"]
 
-		self.AnalyteLst = ["Decane", "Decane (C10)", 
-							"Perfluoronaphthalene", "OFN", 
+		self.AnalyteLst = ["Perfluoronaphthalene", "OFN", 
 							"Bis(pentafluorophenyl)phenyl phosphine", "DFTPP",
-							'"Benzene, hexabromo-"', "HBB",
-							"Tetracontane", "Tetracontane (C40)"]
+							'Benzidine', "Benzidine_TAF",
+							"p,p-DDT", "p,p-DDT_TAF"]
 							
 		#Data structure of AnalyteDict key = ChromatTOF naming of a given analyte
 			#value = [ p = peak found analyte or t = TAF analyte, [] = values to append which will be insert queried, boolean = was analyte found]
-		self.AnalyteDict = {"Decane" : ['p', [], False, {"1": "500 fg", "2": "5 pg", "3": "10 pg", "4": "50 pg"}],
-							"Decane (C10)": ['t', [], False, {"1": "500 fg", "2": "5 pg", "3": "10 pg", "4": "50 pg"}],
-							"Perfluoronaphthalene": ['p', [], False, {"1": "50 fg", "2": "1 pg", "3": "10 pg", "4": "50 pg"}],
-							"OFN": ['t', [], False, {"1": "50 fg", "2": "1 pg", "3": "10 pg", "4": "50 pg"}],
-							"Bis(pentafluorophenyl)phenyl phosphine": ['p', [], False, {"1": "100 fg", "2": "1 pg", "3": "10 pg", "4": "50 pg"}],
-							"DFTPP": ['t', [], False, {"1": "100 fg", "2": "1 pg", "3": "10 pg", "4": "50 pg"}],
-							'"Benzene, hexabromo-"': ['p', [], False, {"1": "50 fg", "2": "1 pg", "3": "10 pg", "4": "50 pg"}],
-							"HBB": ['t', [], False, {"1": "50 fg", "2": "1 pg", "3": "10 pg", "4": "50 pg"}],
-							"Tetracontane": ['p', [], False, {"1": "500 fg", "2": "5 pg", "3": "10 pg", "4": "50 pg"}],
-							"Tetracontane (C40)": ['t', [], False, {"1": "500 fg", "2": "5 pg", "3": "10 pg", "4": "50 pg"}]}
+		self.AnalyteDict = {"Perfluoronaphthalene": ['p', [], False, {"1": "5 pg", "2": "10 pg", "3": "50 pg", "4": "100 pg"}],
+							"OFN": ['t', [], False, {"1": "5 pg", "2": "10 pg", "3": "50 pg", "4": "100 pg"}],
+							"Bis(pentafluorophenyl)phenyl phosphine": ['p', [], False, {"1": "5 pg", "2": "10 pg", "3": "50 pg", "4": "100 pg"}],
+							"DFTPP": ['t', [], False, {"1": "5 pg", "2": "10 pg", "3": "50 pg", "4": "100 pg"}],
+							'Benzidine': ['p', [], False, {"1": "5 pg", "2": "10 pg", "3": "50 pg", "4": "100 pg"}],
+							"Benzidine_TAF": ['t', [], False, {"1": "5 pg", "2": "10 pg", "3": "50 pg", "4": "100 pg"}],
+							"p,p-DDT": ['p', [], False, {"1": "5 pg", "2": "10 pg", "3": "50 pg", "4": "100 pg"}],
+							"p,p-DDT_TAF": ['t', [], False, {"1": "5 pg", "2": "10 pg", "3": "50 pg", "4": "100 pg"}]}
 			
 def BackUpProject(source, destination):	
 	call(["robocopy", source, destination, "/mir"])
@@ -583,13 +594,13 @@ def BackUpProject(source, destination):
 print "\n\n\n" + "Start" + "-" * 18 
 		
 app = wx.App(False)
-frame = D2D_Frame(None, title="Day to Day Stability 1.0")
+frame = D2D_Frame(None, title="Day to Day Stability 2.0")
 panel = D2D_Panel(frame)
 frame.Show(True)
 app.MainLoop()
 
 print "END" + "-" * 20 + "\n\n\n"
 
-BackUpProject("C:\\D2D_Stability", "C:\\D2D_Stability_Backup")
+# BackUpProject("C:\\D2D_Stability", "C:\\D2D_Stability_Backup")
 
 
