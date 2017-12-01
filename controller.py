@@ -573,20 +573,14 @@ class ChromatTOF():
 		self.Set_Data_Headers = ["Date Time", "Source File", "Det. Bias", "Area", "Similarity", "R.T. (s)", "Height", "FWHH (s)", "Tailing Factor", "Peak S/N", "Quant S/N"]
 
 		self.AnalyteLst = ["Perfluoronaphthalene", "OFN", 
-							"Bis(pentafluorophenyl)phenyl phosphine", "DFTPP",
-							'Benzidine', "Benzidine_TAF",
-							"p,p-DDT", "p,p-DDT_TAF"]
+							"Bis(pentafluorophenyl)phenyl phosphine", "DFTPP"]
 							
 		#Data structure of AnalyteDict key = ChromatTOF naming of a given analyte
 			#value = [ p = peak found analyte or t = TAF analyte, [] = values to append which will be insert queried, boolean = was analyte found]
 		self.AnalyteDict = {"Perfluoronaphthalene": ['p', [], False, {"1": "5 pg", "2": "10 pg", "3": "50 pg", "4": "100 pg"}],
 							"OFN": ['t', [], False, {"1": "5 pg", "2": "10 pg", "3": "50 pg", "4": "100 pg"}],
 							"Bis(pentafluorophenyl)phenyl phosphine": ['p', [], False, {"1": "5 pg", "2": "10 pg", "3": "50 pg", "4": "100 pg"}],
-							"DFTPP": ['t', [], False, {"1": "5 pg", "2": "10 pg", "3": "50 pg", "4": "100 pg"}],
-							'Benzidine': ['p', [], False, {"1": "5 pg", "2": "10 pg", "3": "50 pg", "4": "100 pg"}],
-							"Benzidine_TAF": ['t', [], False, {"1": "5 pg", "2": "10 pg", "3": "50 pg", "4": "100 pg"}],
-							"p,p-DDT": ['p', [], False, {"1": "5 pg", "2": "10 pg", "3": "50 pg", "4": "100 pg"}],
-							"p,p-DDT_TAF": ['t', [], False, {"1": "5 pg", "2": "10 pg", "3": "50 pg", "4": "100 pg"}]}
+							"DFTPP": ['t', [], False, {"1": "5 pg", "2": "10 pg", "3": "50 pg", "4": "100 pg"}],}
 			
 def BackUpProject(source, destination):	
 	call(["robocopy", source, destination, "/mir"])
