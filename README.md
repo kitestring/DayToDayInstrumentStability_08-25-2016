@@ -1,26 +1,24 @@
 # DayToDayInstrumentStability_08-25-2016
 
-### __Date Written:__ 08/25/2016
+### Date Written: 08/25/2016
 
-### __Industry:__ Time of Flight Mass Spectrometer Developer & Manufacturer
+### Industry: Time of Flight Mass Spectrometer Developer & Manufacturer
 
-### __Department:__ Validation (Late Stage R&D)
+### Department: Validation (Late Stage R&D)
 
-### __GUI Example:__
+### GUI Example:
+![GUI.png](/Examples/GUI.png)
 
-![GUI.png][Examples/GUI.png]
-
-Experiment Description:
+### Experiment Description:
 
 The primary object of this experiment was to determine the stability and reproducibility of the instrument over a 25 day period of time.  This was quantified by measuring 4 different chemical mixtures which contained 36 chemicals of interest at 4 different concentration levels.  Each concentration level was measured ten times each day for a total of 40 measurements each day.  This was done across three different instruments.  For each chemical there were 9 metrics to assess the performance.  After each measurement, the instrument would export a single tab delimited text file.  
 
-Data Accumulation:
+### Data Accumulation:
 
 If you’ve been doing the math that’s 40 text files per day X 25 days X 3 instruments = 3,000 text files.  Taking it a step further, each text file contained between 70 & 120 chemicals that were detected in the chemical mixture, 36 being relevant to the study.  Each chemical had 9 metrics that we were interested in.  Therefore each text file contained 324 values of interest.  Thus, this experiment generated 3,000 X 324 = 972,000 values critical to our instigation.
 
-Sample Raw Data:
-
-“Day 1 L-3 v-1.txt” Provides an example of a single tab delimited text file exported from one of our chemical analyzers.
+### Sample Raw Data:
+Here is example of a single tab delimited [text file](/Examples/Day 1 L-3 v-1.txt) exported from one of our chemical analyzers.
 
 Sample Output:
 
