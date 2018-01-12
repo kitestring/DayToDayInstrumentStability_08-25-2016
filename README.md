@@ -1,12 +1,12 @@
 # DayToDayInstrumentStability_08-25-2016
 
-Date Written: 08/25/2016
+### __Date Written:__ 08/25/2016
 
-Industry: Time of Flight Mass Spectrometer Developer & Manufacturer
+### __Industry:__ Time of Flight Mass Spectrometer Developer & Manufacturer
 
-Department: Validation (Late Stage R&D)
+### __Department:__ Validation (Late Stage R&D)
 
-GUI: “GUI.png”
+### __GUI Example:__ “GUI.png”
 
 Experiment Description:
 
