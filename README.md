@@ -7,7 +7,8 @@
 ### __Department:__ Validation (Late Stage R&D)
 
 ### __GUI Example:__
-![GUI.png][examples/GUI.png]
+
+![GUI.png][Examples/GUI.png]
 
 Experiment Description:
 
