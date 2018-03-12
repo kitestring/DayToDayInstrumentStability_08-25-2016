@@ -17,7 +17,7 @@ The primary object of this experiment was to determine the stability and reprodu
 
 If you’ve been doing the math that’s 40 text files per day X 25 days X 3 instruments = 3,000 text files.  Taking it a step further, each text file contained between 70 & 120 chemicals that were detected in the chemical mixture, 36 being relevant to the study.  Each chemical had 9 metrics that we were interested in.  Therefore each text file contained 324 values of interest.  Thus, this experiment generated 3,000 X 324 = 972,000 values critical to our instigation.
 
-### Sample Output:
+### Sample Output: (To maintain confidentiality the data examples shown are not “real” and are simulated data sets.)
 ![SampleOutput_Area-Perfluoronaphthalene](/Examples/SampleOutput_Area-Perfluoronaphthalene.png)
  THis is an example of the integrated area plotted for all four concentration levels of the chemical Perfluoronaphthalene after 10 days of the investigation.  A secondary y-axis is included overlaying the instrument detector voltage was set to for a particular measurement.
  
